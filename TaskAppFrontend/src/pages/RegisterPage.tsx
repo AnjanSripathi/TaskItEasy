@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -11,6 +13,7 @@ function RegisterPage() {
     try {
       const response = await axios.post(`${API_URL}/api/users/register`, { username, email, password });
       console.log('Registration successful:', response.data);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Registration failed:', error);
     }
